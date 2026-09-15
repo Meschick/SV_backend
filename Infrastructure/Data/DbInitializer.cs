@@ -14,7 +14,7 @@ namespace SV_backend.Infrastructure.Data
                 new Categoria { Id = 3, Nome = "Casacos & Jaquetas", Slug = "casacos-jaquetas" }
             );
 
-            // IDs fixos para referenciar
+            // IDs Fixos (Estáticos) para Produtos
             var produto1Id = Guid.Parse("11111111-1111-1111-1111-111111111111");
             var produto2Id = Guid.Parse("22222222-2222-2222-2222-222222222222");
 
@@ -38,19 +38,19 @@ namespace SV_backend.Infrastructure.Data
                 }
             );
 
-            // 3. Variações / SKUs (Tamanhos P, M, G | Cores Preto, Off-White, Khaki)
+            // 3. Variações / SKUs com GUIDs ESTÁTICOS (Hardcoded)
             modelBuilder.Entity<ProdutoVariacao>().HasData(
                 // Camiseta Oversized Preta
-                new ProdutoVariacao { Id = Guid.NewGuid(), ProdutoId = produto1Id, SKU = "CAM-OVR-BLK-P", Tamanho = "P", Cor = "Preto", Estoque = 15 },
-                new ProdutoVariacao { Id = Guid.NewGuid(), ProdutoId = produto1Id, SKU = "CAM-OVR-BLK-M", Tamanho = "M", Cor = "Preto", Estoque = 30 },
-                new ProdutoVariacao { Id = Guid.NewGuid(), ProdutoId = produto1Id, SKU = "CAM-OVR-BLK-G", Tamanho = "G", Cor = "Preto", Estoque = 20 },
+                new ProdutoVariacao { Id = Guid.Parse("33333333-3333-3333-3333-333333333301"), ProdutoId = produto1Id, SKU = "CAM-OVR-BLK-P", Tamanho = "P", Cor = "Preto", Estoque = 15 },
+                new ProdutoVariacao { Id = Guid.Parse("33333333-3333-3333-3333-333333333302"), ProdutoId = produto1Id, SKU = "CAM-OVR-BLK-M", Tamanho = "M", Cor = "Preto", Estoque = 30 },
+                new ProdutoVariacao { Id = Guid.Parse("33333333-3333-3333-3333-333333333303"), ProdutoId = produto1Id, SKU = "CAM-OVR-BLK-G", Tamanho = "G", Cor = "Preto", Estoque = 20 },
 
                 // Camiseta Oversized Off-White
-                new ProdutoVariacao { Id = Guid.NewGuid(), ProdutoId = produto1Id, SKU = "CAM-OVR-WHT-M", Tamanho = "M", Cor = "Off-White", Estoque = 25 },
+                new ProdutoVariacao { Id = Guid.Parse("33333333-3333-3333-3333-333333333304"), ProdutoId = produto1Id, SKU = "CAM-OVR-WHT-M", Tamanho = "M", Cor = "Off-White", Estoque = 25 },
 
                 // Calça Chino Khaki
-                new ProdutoVariacao { Id = Guid.NewGuid(), ProdutoId = produto2Id, SKU = "CAL-CHN-KHK-40", Tamanho = "40", Cor = "Khaki", Estoque = 10 },
-                new ProdutoVariacao { Id = Guid.NewGuid(), ProdutoId = produto2Id, SKU = "CAL-CHN-KHK-42", Tamanho = "42", Cor = "Khaki", Estoque = 12 }
+                new ProdutoVariacao { Id = Guid.Parse("33333333-3333-3333-3333-333333333305"), ProdutoId = produto2Id, SKU = "CAL-CHN-KHK-40", Tamanho = "40", Cor = "Khaki", Estoque = 10 },
+                new ProdutoVariacao { Id = Guid.Parse("33333333-3333-3333-3333-333333333306"), ProdutoId = produto2Id, SKU = "CAL-CHN-KHK-42", Tamanho = "42", Cor = "Khaki", Estoque = 12 }
             );
         }
     }
