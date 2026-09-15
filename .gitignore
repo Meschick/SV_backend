@@ -1,0 +1,39 @@
+## Core build outputs
+[Db]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Bb]in/
+[Oo]bj/
+[Log]s/
+
+## Visual Studio / VS Code tooling
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Testing artifacts
+[Tt]est[Rr]esult*/
+*.VisualState.xml
+
+## Local publishing folders
+publish/
+[Aa]rtifacts/
+
+## OS specific files
+.DS_Store
+Thumbs.db
+
+## DO NOT ignore appsettings.json, but DO ignore actual secrets
+# appsettings.Development.json should remain tracked for local structure setup,
+# but manage actual secrets using .NET User Secrets or environment variables instead.
+
+.env
+
+.data/

@@ -1,0 +1,43 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: local_sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD}
+    ports:
+      - "${MSSQL_PORT}:1433"
+    volumes:
+      - mssql_data:/var/opt/mssql
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: local_rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
+    ports:
+      - "${RABBITMQ_PORT}:5672"
+      - "${RABBITMQ_MGMT_PORT}:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+  redis:
+    image: redis:alpine
+    container_name: local_redis
+    ports:
+      - "${REDIS_PORT}:6379"
+    volumes:
+      - redis_data:/data
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: local_mailhog
+    ports:
+      - "${MAILHOG_SMTP_PORT}:1025"
+      - "${MAILHOG_WEB_PORT}:8025"
+
+volumes:
+  mssql_data:
+  rabbitmq_data:
+  redis_data:
