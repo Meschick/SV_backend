@@ -13,7 +13,7 @@ namespace SV_backend.Domain.Entities
 
         // Relacionamento PRODUTO > 1 CATEGORIA
         // Relacionamento PRODUTO > muitos VARIACOES
-        public Categoria categoria { get; set; } = null!;
+        public Categoria Categoria { get; set; } = null!;
         public ICollection<ProdutoVariacao> Variacoes { get; set; } = new List<ProdutoVariacao>();
     }
  

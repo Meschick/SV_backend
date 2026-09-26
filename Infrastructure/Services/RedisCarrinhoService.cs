@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
-using SV_backend.Domain.Interfaces;
+using SV_backend.Application.Interfaces;
 using SV_backend.Domain.Models;
 using System.Text.Json;
 

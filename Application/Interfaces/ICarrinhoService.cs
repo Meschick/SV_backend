@@ -1,6 +1,6 @@
 ﻿using SV_backend.Domain.Models;
 
-namespace SV_backend.Domain.Interfaces
+namespace SV_backend.Application.Interfaces
 {
     public interface ICarrinhoService
     {

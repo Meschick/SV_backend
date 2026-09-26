@@ -7,6 +7,8 @@ namespace SV_backend.Domain.Interfaces
         Task<IEnumerable<Produto>> ObterProdutosAtivosAsync(string? categoriaSlug = null);
         Task<Produto?> ObterProdutoPorIdAsync(Guid id);
         Task AdicionarNovoProduto(Produto produto);
+        Task<IEnumerable<string>> ObterSkusExistentesAsync(IEnumerable<string> skus);
+        void DeletarProduto(Produto produto);
         Task SalvarAlteracoesAsync();
     }
 }

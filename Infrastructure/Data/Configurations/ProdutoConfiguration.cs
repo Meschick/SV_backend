@@ -24,7 +24,7 @@ namespace SV_backend.Infrastructure.Data.Configurations
                 .IsRequired()
                 .HasDefaultValue(true);
 
-            builder.HasOne( p => p.categoria)
+            builder.HasOne( p => p.Categoria)
                 .WithMany(c => c.Produtos)
                 .HasForeignKey(p => p.CategoriaId)
                 .OnDelete(DeleteBehavior.Restrict);

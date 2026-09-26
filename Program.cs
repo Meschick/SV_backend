@@ -1,4 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using SV_backend.Application.Interfaces;
+using SV_backend.Application.Services;
+using SV_backend.Application.Mappings;
 using SV_backend.Domain.Interfaces;
 using SV_backend.Infrastructure.Data.Context;
 using SV_backend.Infrastructure.Repositories;
@@ -25,6 +28,16 @@ builder.Services.AddStackExchangeRedisCache(options =>
 // Registra o repositório no container de Injeção de Dependência do .NET
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddScoped<ICarrinhoService, RedisCarrinhoService>();
+// Registra o serviço de produto
+builder.Services.AddScoped<IProdutoService, ProdutoService>();
+// Registra repositório de categoria
+builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+
+// Registra o serviço de AutoMapper
+builder.Services.AddAutoMapper(cfg => 
+{
+    cfg.AddProfile<ProdutoProfile>();
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

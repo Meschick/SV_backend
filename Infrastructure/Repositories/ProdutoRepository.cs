@@ -20,10 +20,15 @@ namespace SV_backend.Infrastructure.Repositories
             await _context.AddAsync(produto);
         }
 
+        public void DeletarProduto(Produto produto)
+        {
+             _context.Produtos.Remove(produto);
+        }
+
         public async Task<Produto?> ObterProdutoPorIdAsync(Guid id)
         {
            return await _context.Produtos
-              .Include(p => p.categoria)
+              .Include(p => p.Categoria)
               .Include(p => p.Variacoes)
               .FirstOrDefaultAsync(p => p.Id == id);
 
@@ -32,13 +37,13 @@ namespace SV_backend.Infrastructure.Repositories
         public async Task<IEnumerable<Produto>> ObterProdutosAtivosAsync(string? categoriaSlug = null)
         {
             var query = _context.Produtos
-                .Include(p => p.categoria)
+                .Include(p => p.Categoria)
                 .Include(p => p.Variacoes)
                 .Where(p => p.Ativo);
 
             if (!string.IsNullOrEmpty(categoriaSlug))
             {
-                query = query.Where(p => p.categoria.Slug == categoriaSlug);
+                query = query.Where(p => p.Categoria.Slug == categoriaSlug);
             }
 
             return await query.ToListAsync();
@@ -47,6 +52,14 @@ namespace SV_backend.Infrastructure.Repositories
         public async Task SalvarAlteracoesAsync()
         {
            await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<string>> ObterSkusExistentesAsync(IEnumerable<string> skus)
+        {
+            return await _context.ProdutoVariacoes
+                .Where(v => skus.Contains(v.SKU))
+                .Select(v => v.SKU)
+                .ToListAsync();
         }
     }
 }
