@@ -9,27 +9,24 @@ namespace SV_backend.API.Controllers
     [ApiController]
     public class CategoriaController : ControllerBase
     {
-        private readonly ICategoriaRepository _categoriaRepository;
+        private readonly ICategoriaService _categoriaService;
 
-        public CategoriaController(ICategoriaRepository categoriaRepository)
+        public CategoriaController(ICategoriaService categoriaService)
         {
-            _categoriaRepository = categoriaRepository;
+            _categoriaService = categoriaService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var categorias = await _categoriaRepository.ObterTodosAsync();
+            var categorias = await _categoriaService.ObterTodosAsync();
             return Result<IEnumerable<object>>.Success(categorias).ToActionResult(this);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var categoria = await _categoriaRepository.ObterPorIdAsync(id);
-            if (categoria == null)
-                return Result<object>.Fail("Categoria não encontrada.", 404).ToActionResult(this);
-
+            var categoria = await _categoriaService.ObterPorIdAsync(id);
             return Result<object>.Success(categoria, 200).ToActionResult(this);
         }
     }
