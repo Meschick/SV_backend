@@ -37,5 +37,12 @@ namespace SV_backend.API.Controllers
             var result = await _produtoService.ObterProdutosAtivosAsync(categoriaSlug);
             return result.ToActionResult(this);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var result = await _produtoService.RemoverProdutoAsync(id);
+            return result.ToActionResult(this);
+        }
     }
 }

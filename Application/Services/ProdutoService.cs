@@ -53,17 +53,14 @@ namespace SV_backend.Application.Services
         {
             try
             {
-                // Validação estrutural básica
                 var validationErrors = ValidateCriarProdutoRequest(produtoDto).ToList();
                 if (validationErrors.Any())
                     return Result<ProdutoResponseDto>.Fail(validationErrors, 400);
 
-                // Validação: categoria existe
                 var categoria = await _categoriaRepository.ObterPorIdAsync(produtoDto.CategoriaId);
                 if (categoria == null)
                     return Result<ProdutoResponseDto>.Fail("Categoria não encontrada.", 400);
 
-                // Validação básica nas variações (SKUs não vazios e sem duplicatas no payload)
                 if (produtoDto.Variacoes != null)
                 {
                     var skus = produtoDto.Variacoes.Select(v => v.SKU).ToList();
@@ -71,7 +68,7 @@ namespace SV_backend.Application.Services
                         return Result<ProdutoResponseDto>.Fail("Uma ou mais variações possuem SKU inválido.", 400);
                     if (skus.Count != skus.Distinct().Count())
                         return Result<ProdutoResponseDto>.Fail("SKUs duplicados nas variações do produto.", 400);
-                    // Verificar SKUs existentes no banco
+               
                     var skusExistentes = await _produtoRepository.ObterSkusExistentesAsync(skus);
                     if (skusExistentes != null && skusExistentes.Any())
                     {
@@ -82,7 +79,6 @@ namespace SV_backend.Application.Services
 
                 var produto = _mapper.Map<Produto>(produtoDto);
 
-                // Garantir ligação com a categoria existente
                 produto.CategoriaId = produtoDto.CategoriaId;
 
                 _produtoRepository.AdicionarNovoProduto(produto);
@@ -126,6 +122,26 @@ namespace SV_backend.Application.Services
             }
 
             return errors;
+        }
+
+        public async Task<Result<bool>> RemoverProdutoAsync(Guid id)
+        {
+            try
+            {
+                var produto = await _produtoRepository.ObterProdutoPorIdAsync(id);
+
+                if (produto == null)
+                    return Result<bool>.Fail("Produto não encontrado.", 404);
+
+                _produtoRepository.RemoverProduto(produto);
+                await _produtoRepository.SalvarAlteracoesAsync();
+
+                return Result<bool>.Success(true, 200);
+            }
+            catch (Exception e)
+            {
+                return Result<bool>.Fail($"Erro ao remover produto: {e.Message}", 500);
+            }
         }
     }
 }

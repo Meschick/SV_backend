@@ -9,5 +9,6 @@ namespace SV_backend.Domain.Interfaces
         Task<Result<ProdutoResponseDto>> CriarProdutoAsync(CriarProdutoRequest produtoDto);
         Task<Result<ProdutoResponseDto>> ObterProdutoPorIdAsync(Guid id);
         Task<Result<IEnumerable<ProdutoResponseDto>>> ObterProdutosAtivosAsync(string? categoriaSlug = null);
+        Task<Result<bool>> RemoverProdutoAsync(Guid id);
     }
 }

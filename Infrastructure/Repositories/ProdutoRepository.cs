@@ -20,7 +20,7 @@ namespace SV_backend.Infrastructure.Repositories
             await _context.AddAsync(produto);
         }
 
-        public void DeletarProduto(Produto produto)
+        public void RemoverProduto(Produto produto)
         {
              _context.Produtos.Remove(produto);
         }
