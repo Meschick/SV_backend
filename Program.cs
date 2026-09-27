@@ -6,6 +6,7 @@ using SV_backend.Domain.Interfaces;
 using SV_backend.Infrastructure.Data.Context;
 using SV_backend.Infrastructure.Repositories;
 using SV_backend.Infrastructure.Services;
+using SV_backend.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +46,7 @@ builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
+app.ConfigureExceptionHandler();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
